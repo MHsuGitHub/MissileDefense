@@ -12,6 +12,7 @@ public class Main {
     public static void main(String[] args) {
         int MAX_SIM_TIME = 200;
         double START_POS = 50; // 65km approx Radar Target Visibility between 150m and 15 m
+        int SAVE_OUTPUT = 0;
 
         // Initialize the SAM site and an enemy target
         SamSite site1 = new SamSite();
@@ -65,28 +66,16 @@ public class Main {
         }
 
         // Write the content of outputBuilder to a file
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("simulation_output.txt"))) {
-            bufferedWriter.write(outputBuilder.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (SAVE_OUTPUT==1){
+            System.out.println("Saved data.");
+            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("simulation_output.txt"))) {
+                bufferedWriter.write(outputBuilder.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
-
-    private static void exportDataToTxt(String data) {
-        try {
-            FileWriter writer = new FileWriter("simulation_output.txt");
-            BufferedWriter bufferedWriter = new BufferedWriter(writer);
-
-            bufferedWriter.write(data);
-            bufferedWriter.newLine();
-
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
-
-}
 
 
 class SamSite {
